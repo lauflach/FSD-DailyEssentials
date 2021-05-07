@@ -14,6 +14,9 @@
         <div class="row panel-footer">
             <div th:inline="text" class="col-md-2">User Name: [[${user.username}]]</div>
             <div th:inline="text" class="col-md-9">Email: [[${user.email}]]</div>
+            <a th:href="@{'manageUsers/delete/' + ${user.getId()}}" >
+                <button type="button" class="btn btn-primary" th:text="Delete">Delete</button>
+            </a>
         </div>
         <br></br>
     </div>

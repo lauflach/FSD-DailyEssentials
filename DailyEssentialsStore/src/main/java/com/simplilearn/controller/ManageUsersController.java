@@ -1,22 +1,20 @@
 package com.simplilearn.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.simplilearn.model.Product;
 import com.simplilearn.model.User;
-import com.simplilearn.service.ProductService;
 import com.simplilearn.service.UserService;
-import com.simplilearn.util.ProductPager;
 import com.simplilearn.util.UserPager;
-
-import java.security.Principal;
-import java.util.Optional;
 
 @Controller
 public class ManageUsersController {
@@ -31,7 +29,7 @@ public class ManageUsersController {
     }
 
     @GetMapping("/manageUsers")
-    public ModelAndView home(@RequestParam("page") Optional<Integer> page) {
+    public ModelAndView manageUsers(@RequestParam("page") Optional<Integer> page) {
 
         // Evaluate page. If requested parameter is null or less than 0 (to
         // prevent exception), return initial size. Otherwise, return value of
@@ -47,5 +45,10 @@ public class ManageUsersController {
         modelAndView.setViewName("/manageUsers");
         return modelAndView;
     }
-
+    
+    @PostMapping("/manageUsers/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        userService.deleteUser(id);
+        return "redirect:/manageUsers";
+    }
 }

@@ -54,4 +54,9 @@ public class UserServiceImp implements UserService {
 	public Page<User> findAllUsersPageable(Pageable pageable) {
 		return userRepository.findAll(pageable);
 	}
+
+	@Override
+	public void deleteUser(Long id) {
+		userRepository.delete(id);
+	}
 }
